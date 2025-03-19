@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seminario de Actualización</title>
+  </head>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+    input[type='text'] {
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      width: 300px;
+      border: 2px solid gray;
+      border-radius: 5px;
+    }
+    button {
+      padding: 5px 10px;
+      background-color: blue;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: rgb(36, 36, 235);
+    }
+    dialog {
+      padding: 20px;
+      border: 2px solid gray;
+
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    p {
+      font-size: 18px;
+    }
+  </style>
+  <body>
+    <form id="form">
+      <input type="text" id="text-input" />
+    </form>
+    <dialog id="pop-up" style="text-align: center">
+      <p id="popup-message"></p>
+      <button id="change-color">Cambiar color</button>
+      <button id="close">Cerrar</button>
+    </dialog>
+  </body>
+  <script>
+    const form = document.getElementById('form')
+    const closeBtn = document.getElementById('close')
+    const changeColorBtn = document.getElementById('change-color')
+    const popUp = document.getElementById('pop-up')
+    const popUpMessage = document.getElementById('popup-message')
+
+    let colorIndex = 0
+    const colorSchemes = [
+      { background: 'white', color: 'black' },
+      { background: 'black', color: 'white' },
+      { background: 'lightblue', color: 'red' },
+    ]
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault()
+
+      const textInput = document.getElementById('text-input').value
+
+      popUpMessage.innerText = textInput
+
+      popUp.show()
+    })
+
+    closeBtn.addEventListener('click', () => {
+      popUp.close()
+    })
+
+    changeColorBtn.addEventListener('click', () => {
+      colorIndex = (colorIndex + 1) % colorSchemes.length // Cambia entre los esquemas de color
+      const currentScheme = colorSchemes[colorIndex]
+      popUp.style.backgroundColor = currentScheme.background
+      popUp.style.color = currentScheme.color
+    })
+  </script>
+</html>
